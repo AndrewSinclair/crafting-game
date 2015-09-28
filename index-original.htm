@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head> 
+<body>
+  <form>
+    <h2>add ingredients</h2>
+    <ul>
+      <li>
+        <h3>ingredient A:</h3>
+        <input type="text" id="ingredient-a" data-ingredient="a">
+      </li>
+      <li>
+        <h3>ingredient B:</h3>
+        <input type="text" id="ingredient-b" data-ingredient="b">
+      </li>
+      <li>
+        <h3>ingredient C:</h3>
+        <input type="text" id="ingredient-c" data-ingredient="c">
+      </li>
+    </ul>
+
+    <hr>
+
+    <h2>mix ingredients</h2>
+
+    <ul>
+      <h3>choose ingredient:</h3>
+      <select name="" id="choice-1" data-choice="0">
+        <option value="">-- choose --</option>
+        <option value="a">ingredient A</option>
+        <option value="b">ingredient B</option>
+        <option value="c">incredient C</option>
+      </select>
+      <select name="" id="choice-2" data-choice="1">
+        <option value="">-- choose --</option>
+        <option value="a">ingredient A</option>
+        <option value="b">ingredient B</option>
+        <option value="c">incredient C</option>
+      </select>
+      <select name="" id="choice-3" data-choice="2">
+        <option value="">-- choose --</option>
+        <option value="a">ingredient A</option>
+        <option value="b">ingredient B</option>
+        <option value="c">incredient C</option>
+      </select>
+      <select name="" id="choice-4" data-choice="3">
+        <option value="">-- choose --</option>
+        <option value="a">ingredient A</option>
+        <option value="b">ingredient B</option>
+        <option value="c">incredient C</option>
+      </select>
+
+      <button id="make">Make!</button>
+
+      <div id="output"></div>
+  </form>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script>
+     $(document).ready(function() {
+        var ingredients
+          , choices
+          , recipes = [
+            {name: "recipe1", recipe: ["a", "b", "c"], output: ["a"]},
+            {name: "recipe2", recipe: ["c", "c", "c"], output: ["b", "b"]}
+          ];
+
+        function getIngredients() {
+          ingredients =
+            $('input[data-ingredient]')
+            .map(function (index) {
+              var $input = $(this);
+              return {
+                name : $input.data('ingredient'),
+                value: $input.val()
+              };
+            });
+        }
+
+        function setIngredient(name, value) {
+          var ingredient =
+            $.grep(ingredients, function(ingredient) {
+              ingredient.name === name;
+            })[0];
+
+          $(ingredient).val(value);
+        }
+
+        function getChoices() {
+          choices =
+            $('select[data-choice]')
+            .filter(function (index) {
+              $select= $(this);
+              return $select.val() !== "";
+            })
+            .map(function (index) {
+              var $select = $(this);
+              return {
+                choice: $select.data('choice'),
+                value : $select.val()
+              };
+            });
+        }
+
+        function getRecipeFromChoices() {
+          var i = 0
+            , j = 0
+            , recipe
+            , choice
+            , isFinding;
+
+           for (i=0; i < recipes.length; i++) {
+            recipe = recipes[i];
+
+            isFinding = true;
+            for (j=0; j < choices.length; j++) {
+              choice = choices[j];
+              if (recipe.recipe[choice.choice] !== choice.value) {
+                isFinding = false;
+              }
+            }
+
+            if (isFinding) return recipe;
+          }
+        }
+
+        function yieldRecipe(recipe) {
+          var yieldedIngredients
+            , usedIngredients;
+          if (typeof recipe === "undefined") {
+            $('#output').text("You didn't make a recipe");
+            return;
+          }
+
+          yieldedIngredients = recipe.output;
+          usedIngredients = recipe.recipe;
+
+          $.each(usedIngredients, function(idx, ingredient) {
+            var $input = $('input[data-ingredient="' + ingredient + '"]');
+            $input.val(parseInt($input.val()) - 1);
+          });
+
+          $.each(yieldedIngredients, function(idx, ingredient) {
+            var $input = $('input[data-ingredient="' + ingredient + '"]');
+            $input.val(parseInt($input.val()) + 1);
+          });
+
+          $('#output').text('You made this recipe: ' + recipe.name);
+        }
+
+        function doMake(event) {
+          var recipe;
+
+          event.preventDefault();
+
+          getIngredients();
+          getChoices();
+
+          recipe = getRecipeFromChoices();
+
+          yieldRecipe(recipe);
+        }
+
+        $('#make').on('click', doMake);
+     });
+  </script>
+</body>
+</html>
