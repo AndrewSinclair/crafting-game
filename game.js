@@ -1,19 +1,23 @@
-// the game itself
 var game;
 var text;
 var tileSize = 80;
+
+var backGround;
+var behindTrayGround;
+var inventoryTrayGround;
+var infrontTrayGround;
+
 var inventory;
 
 var dropzone;
-var onDropzoneHandler = function(currentSprite){
-	stopDrag(currentSprite, dropzone);
-};
 
 var InventoryController = function(game) {
 	var activeInventory = [];
 	var activeSprites = {};
 	var globalInventory = ['a', 'b', 'c', 'd', 'e'];
 	var ingredientKeys = {};
+
+	game.load.image('inventory-tray', 'inventory-tray.png');
 	
 	for(var i = 0; i < globalInventory.length; i++) {
 		game.load.image(globalInventory[i], "ingredient-" + globalInventory[i] + ".png");
@@ -22,8 +26,12 @@ var InventoryController = function(game) {
 	function init() {
 		for(var i = 0; i < globalInventory.length; i++) {
 			ingredientKeys[globalInventory[i]] = 0;
+
+			var inventoryTray = game.add.sprite(tileSize, tileSize, 'inventory-tray');
+			inventoryTrayGround.add(inventoryTray);
 			
 			var ingredient = game.add.sprite(tileSize * (i + 1), tileSize, globalInventory[i]);
+			behindTrayGround.add(ingredient);
 			
 			ingredient.data = {
 				key: 0,
@@ -99,8 +107,62 @@ var InventoryController = function(game) {
 		return currInventoryObj;
 	}
 	
+	function duplicateAtOriginalPosition(currentSprite) {
+		var x = currentSprite.originalPosition.x;
+		var y = currentSprite.originalPosition.y;
+		currentSpriteClone = game.add.sprite(x, y, currentSprite.key);
+		currentSpriteClone.data = { value: currentSprite.data.value };
+		currentSpriteClone.inputEnabled = true;
+		
+		inventoryObj = inventory.getInventoryObjByValue(currentSpriteClone.data.value);
+		currentSpriteClone.input.enableDrag();
+		
+		currentSpriteClone.originalPosition = currentSpriteClone.position.clone();
+		game.physics.arcade.enable(currentSpriteClone);
+		currentSpriteClone.input.enableSnap(tileSize, tileSize, false, true);
+		currentSpriteClone.events.onDragStart.add(startDrag);
+		currentSpriteClone.events.onDragStop.add(onDropzoneHandler);
+		currentSpriteClone.events.onInputDown.add(onInputDownHandler);
+
+		behindTrayGround.add(currentSpriteClone);
+		
+		//activeSprites[currentSprite.key].push(currentSpriteClone);
+	}
+
 	function onInputDownHandler(currentSprite) {
-		currentSprite.z = foreGround;
+		currentSprite.bringToTop();
+		infrontTrayGround.add(currentSprite);
+	}
+
+
+	function onDropzoneHandler(currentSprite, dropzone, pointer){
+		stopDrag(currentSprite, dropzone, pointer);
+	}
+
+	function stopDrag(currentSprite, dropzone, pointer) {
+		var inputHandler = currentSprite.input;
+		if (!game.physics.arcade.overlap(currentSprite, endSprite, null, game.physics.arcade.intersects)) {
+			currentSprite.position.copyFrom(currentSprite.originalPosition);
+			if (currentSprite.data.inPot) {
+				removeFromPot(currentSprite);
+				currentSprite.destroy(true);
+			} else if(Phaser.Point.distance(addOffset(currentSprite.position, inputHandler.dragOffset), pointer.position) > 0){
+				var inventoryObj = inventory.getInventoryObjByValue(currentSprite.data.value);
+
+				inventoryObj.num++;
+				inventoryObj.text.text = "" + inventoryObj.num;
+			}
+		} else {
+			if (!currentSprite.data.inPot) {
+				addToPot(currentSprite);
+				inventory.duplicateAtOriginalPosition(currentSprite);
+				
+				//if (potPositionOccupied) {
+				//  removeFromPot(otherIngredient);
+				//  otherIngredient.destroy();
+				//}
+			}
+		}
 	}
 	
 	function startDrag(currentSprite){
@@ -120,7 +182,10 @@ var InventoryController = function(game) {
 	return {
 		init: init,
 		getInventoryObjByValue: getInventoryObjByValue,
-		startDrag: startDrag
+		duplicateAtOriginalPosition: duplicateAtOriginalPosition,
+		startDrag: startDrag,
+		stopDrag: stopDrag,
+		onDropzoneHandler: onDropzoneHandler
 	};
 };
 
@@ -146,8 +211,15 @@ playGame.prototype = {
 	},
 
 	create: function(){
-		game.add.sprite(0, 0, "field");
+		backGround = game.add.group();
+		behindTrayGround = game.add.group();
+		inventoryTrayGround = game.add.group();
+		infrontTrayGround = game.add.group();
+
+		// game.add.sprite(0, 0, "field");
+		backGround.create(0, 0, "field");
 		dropzone = game.add.sprite(240, 240, "dropzone");
+		backGround.add(dropzone);
 		inventory.init();
 		
 		text = game.add.text(250, 500, '', { fill: '#000000' });
@@ -173,50 +245,16 @@ function removeFromPot(currentSprite) {
 	inventoryObj.text.text = "" + inventoryObj.num;
 }
 
-function duplicateAtOriginalPosition(currentSprite) {
-	var x = currentSprite.originalPosition.x;
-	var y = currentSprite.originalPosition.y;
-	currentSpriteClone = game.add.sprite(x, y, currentSprite.key);
-	currentSpriteClone.data = { value: currentSprite.data.value };
-	currentSpriteClone.inputEnabled = true;
-	
-	inventoryObj = inventory.getInventoryObjByValue(currentSpriteClone.data.value);
-	currentSpriteClone.input.enableDrag();
-	
-	currentSpriteClone.originalPosition = currentSpriteClone.position.clone();
-	game.physics.arcade.enable(currentSpriteClone);
-	currentSpriteClone.input.enableSnap(tileSize, tileSize, false, true);
-	currentSpriteClone.events.onDragStart.add(startDrag);
-	currentSpriteClone.events.onDragStop.add(onDropzoneHandler);
-	
-	//activeSprites[currentSprite.key].push(currentSpriteClone);
+function addOffset(currentPosition, offsetPosition) {
+	return currentPosition;
 }
+
 
 function startDrag(currentSprite){
 	inventory.startDrag(currentSprite);
 }
 
-function stopDrag(currentSprite, endSprite){
-	if (!game.physics.arcade.overlap(currentSprite, endSprite, null, game.physics.arcade.intersects)) {
-		currentSprite.position.copyFrom(currentSprite.originalPosition);
-		if (currentSprite.data.inPot) {
-			removeFromPot(currentSprite);
-			currentSprite.destroy(true);
-		} else if(Phaser.Point.distance(currentSprite.position, currentSprite.originalPosition) > 0){
-			var inventoryObj = getInvtoryObjByValue(currentSprite.data.value);
-
-			inventoryObj.num++;
-			inventoryObj.text.text = "" + inventoryObj.num;
-		}
-	} else {
-		if (!currentSprite.data.inPot) {
-			addToPot(currentSprite);
-			duplicateAtOriginalPosition(currentSprite);
-			
-			//if (potPositionOccupied) {
-			//  removeFromPot(otherIngredient);
-			//  otherIngredient.destroy();
-			//}
-		}
-	}
+function stopDrag(currentSprite, endSprite, pointer){
+	inventory.stopDrag(currentSprite, endSprite, pointer);
+	
 }
