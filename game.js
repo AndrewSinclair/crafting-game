@@ -7,6 +7,7 @@ var behindTrayGround;
 var inventoryTrayGround;
 var infrontTrayGround;
 
+var recipeController;
 var inventory;
 
 var dropzone;
@@ -198,6 +199,8 @@ playGame.prototype = {
   
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.physics.arcade.enable(dropzone);
+
+    recipeController = new RecipeController(inventory);
   }
 };
 
@@ -244,3 +247,110 @@ function stopDrag(currentSprite, endSprite, pointer) {
     }
   }
 }
+
+var RecipeController = function(inventoryController) {
+  var ingredients
+    , choices
+    , recipes = [
+      {name: "recipe1", recipe: ["a", "b", "c"], output: ["a"]},
+      {name: "recipe2", recipe: ["c", "c", "c"], output: ["b", "b"]}
+    ];
+
+  function getIngredients() {
+    ingredients =
+      $('input[data-ingredient]')
+      .map(function (index) {
+        var $input = $(this);
+        return {
+          name : $input.data('ingredient'),
+          value: $input.val()
+        };
+      });
+  }
+
+  function setIngredient(name, value) {
+    var ingredient =
+      $.grep(ingredients, function(ingredient) {
+        ingredient.name === name;
+      })[0];
+
+    $(ingredient).val(value);
+  }
+
+  function getChoices() {
+    choices =
+      $('select[data-choice]')
+      .filter(function (index) {
+        $select= $(this);
+        return $select.val() !== "";
+      })
+      .map(function (index) {
+        var $select = $(this);
+        return {
+          choice: $select.data('choice'),
+          value : $select.val()
+        };
+      });
+  }
+
+  function getRecipeFromChoices() {
+    var i = 0
+      , j = 0
+      , recipe
+      , choice
+      , isFinding;
+
+     for (i=0; i < recipes.length; i++) {
+      recipe = recipes[i];
+
+      isFinding = true;
+      for (j=0; j < choices.length; j++) {
+        choice = choices[j];
+        if (recipe.recipe[choice.choice] !== choice.value) {
+          isFinding = false;
+        }
+      }
+
+      if (isFinding) return recipe;
+    }
+  }
+
+  function yieldRecipe(recipe) {
+    var yieldedIngredients
+      , usedIngredients;
+    if (typeof recipe === "undefined") {
+      $('#output').text("You didn't make a recipe");
+      return;
+    }
+
+    yieldedIngredients = recipe.output;
+    usedIngredients = recipe.recipe;
+
+    $.each(usedIngredients, function(idx, ingredient) {
+      var $input = $('input[data-ingredient="' + ingredient + '"]');
+      $input.val(parseInt($input.val()) - 1);
+    });
+
+    $.each(yieldedIngredients, function(idx, ingredient) {
+      var $input = $('input[data-ingredient="' + ingredient + '"]');
+      $input.val(parseInt($input.val()) + 1);
+    });
+
+    $('#output').text('You made this recipe: ' + recipe.name);
+  }
+
+  function doMake(event) {
+    var recipe;
+
+    event.preventDefault();
+
+    getIngredients();
+    getChoices();
+
+    recipe = getRecipeFromChoices();
+
+    yieldRecipe(recipe);
+  }
+
+  $('#make').on('click', doMake);
+};
