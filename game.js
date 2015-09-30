@@ -179,6 +179,7 @@ playGame.prototype = {
   preload: function(){
     game.load.image("field", "field.png");
     game.load.image("dropzone", "dropzone.png");
+    game.load.image("make-button", "make.png");
     
     inventory = new InventoryController(game);
   },
@@ -194,13 +195,17 @@ playGame.prototype = {
     dropzone = game.add.sprite(240, 240, "dropzone");
     backGround.add(dropzone);
     inventory.init();
+
+    recipeController = new RecipeController(inventory);
+
+    var makeButton = new Phaser.Button(game, 160, 640, "make-button", recipeController.doMake);
+    inventoryTrayGround.add(makeButton);
     
     text = game.add.text(250, 500, '', { fill: '#000000' });
   
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.physics.arcade.enable(dropzone);
 
-    recipeController = new RecipeController(inventory);
   }
 };
 
@@ -257,38 +262,26 @@ var RecipeController = function(inventoryController) {
     ];
 
   function getIngredients() {
-    ingredients =
-      $('input[data-ingredient]')
-      .map(function (index) {
-        var $input = $(this);
-        return {
-          name : $input.data('ingredient'),
-          value: $input.val()
-        };
-      });
+    // activeInventory: [{name, num, text}];
+    ingredients = inventoryController.getActiveInventory();
   }
 
-  function setIngredient(name, value) {
-    var ingredient =
-      $.grep(ingredients, function(ingredient) {
-        ingredient.name === name;
-      })[0];
+  // function setIngredient(name, num) {
+  //   var ingredient =
+  //     $.grep(ingredients, function(ingredient) {
+  //       ingredient.name === name;
+  //     })[0];
 
-    $(ingredient).val(value);
-  }
+  //   ingredient.num = num;
+  // }
 
-  function getChoices() {
+  function getChoicesInPot() {
+    //ingredients in pot: [{name, num, text}];
     choices =
-      $('select[data-choice]')
-      .filter(function (index) {
-        $select= $(this);
-        return $select.val() !== "";
-      })
-      .map(function (index) {
-        var $select = $(this);
+      $.map(inventoryController.getIngredientsInPot(), function (index) {
         return {
-          choice: $select.data('choice'),
-          value : $select.val()
+          choice: index,
+          value : this.name
         };
       });
   }
@@ -339,18 +332,18 @@ var RecipeController = function(inventoryController) {
     $('#output').text('You made this recipe: ' + recipe.name);
   }
 
-  function doMake(event) {
+  function doMake() {
     var recipe;
 
-    event.preventDefault();
-
     getIngredients();
-    getChoices();
+    getChoicesInPot();
 
     recipe = getRecipeFromChoices();
 
     yieldRecipe(recipe);
   }
 
-  $('#make').on('click', doMake);
+  return {
+    doMake: doMake
+  };
 };
