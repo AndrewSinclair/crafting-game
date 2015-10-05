@@ -1,0 +1,379 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"cu",
+				"currentSpriteClone"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "game.js",
+			"settings":
+			{
+				"buffer_size": 9907,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index.html",
+			"settings":
+			{
+				"buffer_size": 439,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "index-original.htm",
+			"settings":
+			{
+				"buffer_size": 4715,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 207.0,
+		"selected_items":
+		[
+			[
+				":w",
+				":w - Save"
+			],
+			[
+				":space",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				":ja",
+				"Set Syntax: JavaScript"
+			],
+			[
+				":q",
+				"Set Syntax: SQL"
+			],
+			[
+				":W",
+				":w - Save"
+			],
+			[
+				":install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 167.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/andrewsinclair/Sites/crafting-game/crafting-game.sublime-project",
+		"/Users/andrewsinclair/notes/INTLO-1121.txt",
+		"/Users/andrewsinclair/notes/AWS.txt",
+		"/Users/andrewsinclair/Documents/EFT-files-Content-sep8.csv",
+		"/Users/andrewsinclair/Documents/eft-file-sept-1.csv",
+		"/Users/andrewsinclair/notes/Question to self.txt",
+		"/Users/andrewsinclair/Documents/Eft-August-25.csv",
+		"/Users/andrewsinclair/Documents/eft-file-aug-28.csv",
+		"/Users/andrewsinclair/Documents/modified_slow_sql.csv",
+		"/Users/andrewsinclair/notes/total-revenue.txt",
+		"/Users/andrewsinclair/projects/live-ops-portal/static/js/restaurants.js",
+		"/Users/andrewsinclair/Documents/AndrewSinclair",
+		"/Users/andrewsinclair/Documents/jobsremovedupdate.java",
+		"/Users/andrewsinclair/Documents/jobstatusupdate.java",
+		"/Users/andrewsinclair/.m2/settings.xml",
+		"/Users/andrewsinclair/Documents/list-of-misc-records.txt",
+		"/Users/andrewsinclair/Library/Application Support/Sublime Text 2/Packages/Alignment/Default (OSX).sublime-keymap",
+		"/Users/andrewsinclair/Library/Application Support/Sublime Text 2/Packages/User/Base File.sublime-settings",
+		"/Users/andrewsinclair/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/andrewsinclair/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/andrewsinclair/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/andrewsinclair/Downloads/logs 3/2015-06-21-0400.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/PROD-2015-06-21-0300.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/PROD-2015-06-21-0600.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/PROD-2015-06-21-0700.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/110f.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/369c.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/a33a.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/369a.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/39ca.txt",
+		"/Users/andrewsinclair/Downloads/logs 3/2015-06-21-1600.txt",
+		"/Users/andrewsinclair/Downloads/logs 4/2015-06-21-1500.txt",
+		"/Users/andrewsinclair/Downloads/logs 5/2015-06-21-1700.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/0400.txt",
+		"/Users/andrewsinclair/Downloads/prod logs/0300.txt",
+		"/Users/andrewsinclair/Downloads/2015-06-22-1600.txt",
+		"/System/Library/Frameworks/Kernel.framework/Versions/A/Headers/sys/resource.h"
+	],
+	"find":
+	{
+		"height": 42.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"setIngredient",
+			"getIngredients",
+			"doMake",
+			"stopDrag",
+			"onDropzoneHandler",
+			"stopDrag",
+			"onDropzoneHandler",
+			"stopDrag",
+			"startDrag",
+			"onInputDownHandler",
+			"\n	",
+			"getInventoryObjByValue",
+			"stopDrag",
+			"inventory",
+			"duplicateAtOriginalPosition",
+			".z",
+			"z",
+			"foreGround",
+			"1441623600000",
+			"Kristina",
+			"Christina",
+			"Corydon",
+			"144101880000",
+			"1441018800000",
+			"Jolly",
+			"toggle",
+			"Polygon",
+			"(",
+			"Binary",
+			"4a82.*Contact Success",
+			"c8e9.*contact successful",
+			"bafc.*contact successful",
+			"653-9464",
+			"653-",
+			"Contact succ",
+			"giving",
+			"giv",
+			"653-",
+			"653",
+			"giving",
+			"Jun 21 .* tropo1\\d\\d.orl.voxeo.net PRISM.*?:",
+			"Jun 21 .* tropo110.orl.voxeo.net PRISM.*?:",
+			"error",
+			"fail",
+			"Already finished handler",
+			"Jun 21 .* tropo110.orl.voxeo.net PRISM.*?:",
+			"Jun 21 .* tropo109.orl.voxeo.net PRISM.*?:",
+			"have",
+			"contact successful",
+			"Contact successful",
+			"653-9464",
+			"653-9464\n653-9464",
+			"msg:",
+			"Contact successful",
+			"giving up",
+			"contact successful",
+			"Contact successful",
+			"Contact successful, shutting down.\n\nContact successful",
+			"Contact successful, shutting down.\n\nContact successful, shutting down.",
+			"giving",
+			"successful",
+			"9464",
+			"304",
+			"9464",
+			"deliveryPadding",
+			"deliveryPadding\ndeliveryPadding",
+			"deliveryPadding",
+			"deliveryStart",
+			"tableRows()",
+			"table-data",
+			"table"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "game.js",
+					"settings":
+					{
+						"buffer_size": 9907,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8475,
+								8475
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5899.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "index.html",
+					"settings":
+					{
+						"buffer_size": 439,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								31,
+								31
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "index-original.htm",
+					"settings":
+					{
+						"buffer_size": 4715,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1773,
+								1773
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 923.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 37.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 232.0,
+	"status_bar_visible": true
+}
