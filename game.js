@@ -8,6 +8,7 @@ var inventoryTrayGround;
 var infrontTrayGround;
 
 var recipeController;
+var clicker;
 var inventory;
 
 var dropzone;
@@ -31,6 +32,7 @@ playGame.prototype = {
     game.load.image("make-button", "make.png");
     
     inventory = new InventoryController(game);
+    clicker = new ClickerController(game, inventory);
   },
 
   create: function(){
@@ -55,6 +57,8 @@ playGame.prototype = {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.physics.arcade.enable(dropzone);
 
+    clicker.getNewClicker('sword-shop');
+    clicker.getNewClicker('arrow-shop');
   }
 };
 

@@ -2,7 +2,9 @@ var InventoryController = function(game) {
   var activeInventory = []
     , activeSprites = {}
     , globalInventory = ['a', 'b', 'c', 'd', 'e']
-    , ingredientKeys = {};
+    , ingredientKeys = {}
+    , moneyText
+    , money = 0;
 
   (function preload() {
     game.load.image('inventory-tray', 'inventory-tray.png');
@@ -49,6 +51,8 @@ var InventoryController = function(game) {
       ingredient.events.onDragStop.add(onDropzoneHandler);
       ingredient.events.onInputDown.add(onInputDownHandler);
     }
+    
+    moneyText = game.add.text(560, 0, "$0", {fill: '#000000'});
   }
 
   function getNextIngredientKey(value) {
@@ -189,6 +193,11 @@ var InventoryController = function(game) {
       }
     }
   }
+
+  function addMoney(amount) {
+    money += amount;
+    moneyText.text = "$" + money;
+  }
   
   return {
     init: init,
@@ -196,6 +205,7 @@ var InventoryController = function(game) {
     duplicateAtOriginalPosition: duplicateAtOriginalPosition,
     insertActiveInventory: insertActiveInventory,
     getIngredientsInPot: getIngredientsInPot,
-    removeIngredientsInPot: removeIngredientsInPot
+    removeIngredientsInPot: removeIngredientsInPot,
+    addMoney: addMoney
   };
 };

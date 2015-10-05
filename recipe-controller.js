@@ -59,7 +59,7 @@ var RecipeController = function(inventoryController) {
     for(var i = 0; i < yieldedIngredients.length; i++) {
       inventoryController.insertActiveInventory(yieldedIngredients[i]);
     }
-
+    
     setText('You made this recipe: ' + recipe.name);
   }
 
